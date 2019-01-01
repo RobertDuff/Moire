@@ -1,0 +1,51 @@
+---
+Boundaries:
+  - Name: Outer
+    Left: 10
+    Top: 10
+    Width: 800
+    Height: 800
+    
+  - Name: Middle
+    Parent: Outer
+    Left: 30%
+    Top: 30%
+    Right: 70%
+    Bottom: 70%
+    
+  - Name: Inner
+    Parent: Middle
+    Left: 30%
+    Top: 30%
+    Right: 70%
+    Bottom: 70%
+    
+Paths:
+  - Name: A
+    Boundary: Outer
+    Type: Oval
+    Phi: 10
+    
+  - Name: B
+    Boundary: Inner
+    Type: Oval
+    Phi: 10
+    
+  - Name: C
+    Boundary: Middle
+    Type: Oval
+    Phi: 3
+    
+  - Name: D
+    Boundary: Inner
+    Type: Oval
+    Phi: 3
+    
+Shapes:
+  - Type: Line
+    Color: Yellow
+    Paths: [ A, B ]
+    
+  - Type: Line
+    Color: Red
+    Paths: [ C, D ]

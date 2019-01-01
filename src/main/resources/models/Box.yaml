@@ -1,0 +1,74 @@
+---
+Paths:
+  - { Name: UL, Type: Stationary, X:  2%, Y:  2% }
+  - { Name: UR, Type: Stationary, X: 98%, Y:  2% }
+  - { Name: LL, Type: Stationary, X:  2%, Y: 98% }
+  - { Name: LR, Type: Stationary, X: 98%, Y: 98% }
+  
+  - { Name: A,  Type: Stationary, X: 25%, Y:  2% }
+  - { Name: B,  Type: Stationary, X: 75%, Y:  2% }
+  - { Name: C,  Type: Stationary, X: 25%, Y: 98% }
+  - { Name: D,  Type: Stationary, X: 75%, Y: 98% }
+  
+  - { Name: E,  Type: Stationary, X:  2%, Y: 25% }
+  - { Name: F,  Type: Stationary, X:  2%, Y: 75% }
+  - { Name: G,  Type: Stationary, X: 98%, Y: 25% }
+  - { Name: H,  Type: Stationary, X: 98%, Y: 75% }
+  
+  - Name: W
+    Type: Oval
+    Phi: 3
+    Boundary:
+      Left: 5%
+      Top: 5%
+      Width: 40%
+      Height: 40%
+      
+  - Name: X
+    Type: Oval
+    Phi: -4
+    Boundary:
+      Left: 55%
+      Top: 5%
+      Width: 40%
+      Height: 40%
+      
+  - Name: Y
+    Type: Oval
+    Phi: 2
+    Boundary:
+      Left: 5%
+      Top: 55%
+      Width: 40%
+      Height: 40%
+      
+  - Name: Z
+    Type: Oval
+    Phi: -1
+    Boundary:
+      Left: 55%
+      Top: 55%
+      Width: 40%
+      Height: 40%
+      
+Shapes:
+  - Type: Polygon
+    Color: White
+    Paths: [ UL, UR, LR, LL, UL ]
+    
+  - Type: Polygon
+    Color: Red
+    Paths: [ A, W, Y, C ]
+    
+  - Type: Polygon
+    Color: Green
+    Paths: [ B, X, Z, D ]
+    
+  - Type: Polygon
+    Color: Yellow
+    Paths: [ E, W, X, G ]
+    
+  - Type: Polygon
+    Color: Blue
+    Paths: [ F, Y, Z, H ]
+  

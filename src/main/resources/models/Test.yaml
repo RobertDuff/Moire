@@ -1,0 +1,14 @@
+---
+Paths:
+  - Name: A
+    Type: Stationary
+    X: 10%
+    Y: 10%
+    
+  - Name: B
+    Type: Stationary
+    X: 90%
+    Y: 90%
+    
+  - Name: C
+     

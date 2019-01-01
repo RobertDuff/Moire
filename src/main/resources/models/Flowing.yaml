@@ -1,0 +1,51 @@
+---
+Paths:
+  - Name: A
+    Type: Oval
+    Phi: 2
+    Boundary:
+      Left:   10%
+      Top:    10%
+      Right:  90%
+      Bottom: 90%
+      
+  - Name: B
+    Type: Oval
+    Phi: -4
+    Boundary:
+      Left:   20%
+      Top:    20%
+      Right:  80%
+      Bottom: 80%
+      
+  - Name: C
+    Type: Oval
+    Phi: 4
+    Boundary:
+      Left:   30%
+      Top:    30%
+      Right:  70%
+      Bottom: 70%
+      
+Shapes:
+  - Type: Target
+    Radius: 3
+    Length: 3
+    Color: Red
+    Path: A
+    
+  - Type: Target
+    Radius: 3
+    Length: 3
+    Color: Yellow
+    Path: B
+    
+  - Type: Target
+    Radius: 3
+    Length: 3
+    Color: Green
+    Path: C
+    
+  - Type: Polygon
+    Color: Blue
+    Paths: [ A, B, C, A ]

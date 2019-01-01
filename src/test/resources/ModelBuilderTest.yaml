@@ -1,0 +1,76 @@
+---
+BadBoundaryType:
+  Boundaries:
+    - Name: Fred
+      Type: XXX
+
+BadColorType:
+  Colors:
+    - Name: Fred
+      Type: XXX
+
+BadPathType:
+  Paths:
+    - Name: Fred
+      Type: XXX
+
+BadShapeType:
+  Shapes:
+    - Type: XXX
+      Color: green
+      Path: { Type: Stationary, X: 0, Y: 0 }
+
+BadBoundaryName:
+  Paths:
+    - Type: Stationary
+      Boundary: XXX
+      
+BadColorName:
+  Colors:
+    - Name: Fred
+      Color: XXX
+      
+BadPathNameInPath:
+  Paths:
+    - Name: Fred
+      Type: MidPoint
+      Paths:
+        - XXX
+        - ZZZ
+
+BadPathNameInShape:
+  Shapes:
+    - Type: Line
+      Color: red
+      Paths:
+        - XXX
+        - YYY
+      
+MissingRadius:
+  Shapes:
+    - Type: Circle
+      Color: blue
+      Path:
+        Type: Stationary
+        X: 0
+        Y: 0
+        
+PathCountForCircle:
+  Shapes:
+    - Type: Circle
+      Color: yellow
+      Paths:
+        - { Type: Bouncing, X: 0, Y: 0 }
+        - { Type: Bouncing, X: 0, Y: 0 }
+        - { Type: Bouncing, X: 0, Y: 0 }
+        - { Type: Bouncing, X: 0, Y: 0 }
+        
+PathCountForCurve:
+  Shapes:
+    - Type: Curve
+      Color: yellow
+      Paths:
+        - { Type: Bouncing, X: 0, Y: 0 }
+        - { Type: Bouncing, X: 0, Y: 0 }
+        - { Type: Bouncing, X: 0, Y: 0 }
+        

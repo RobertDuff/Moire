@@ -1,0 +1,31 @@
+---
+Paths:
+  - Name: A
+    Type: RandomBouncing
+    X: 30
+    Y: 30
+    
+  - Name: B
+    Type: RandomBouncing
+    X: 30
+    Y: 30
+    
+  - Name: C
+    Type: RandomBouncing
+    X: 30
+    Y: 30
+    
+Shapes:
+  - Type: Line
+    Color: Red
+    Paths: [ A, B ]
+    
+  - Type: Line
+    Color: Green
+    Paths: [ B, C ]
+    
+  - Type: Line
+    Color: Yellow
+    Paths: [ C, A ]
+
+     

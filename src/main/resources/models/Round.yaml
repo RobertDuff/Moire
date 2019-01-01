@@ -1,0 +1,93 @@
+---
+Boundaries:
+  - Name: A
+    Left: 10%
+    Top: 10%
+    Right: 90%
+    Bottom: 90%
+    
+  - Name: B
+    Parent: A
+    Left: 10%
+    Top: 10%
+    Right: 90%
+    Bottom: 90%
+    
+  - Name: C
+    Parent: B
+    Left: 10%
+    Top: 10%
+    Right: 90%
+    Bottom: 90%
+    
+  - Name: D
+    Parent: C
+    Left: 10%
+    Top: 10%
+    Right: 90%
+    Bottom: 90%
+    
+Paths:
+  - Name: A
+    Type: Oval
+    Boundary: A
+    Phi: 2
+    
+  - Name: B
+    Type: Oval
+    Boundary: B
+    Phi: -3
+    
+  - Name: C
+    Type: Oval
+    Boundary: C
+    Phi: 5
+    
+  - Name: D
+    Type: Oval
+    Boundary: D
+    Phi: -7
+    
+Colors:
+  - Name: Hot
+    Type: Smooth
+    Spans:
+      - Start: Red
+        End: Yellow
+        Steps: 150
+        
+      - Start: Yellow
+        End: Red
+        Steps: 150
+    
+  - Name: Cold
+    Type: Smooth
+    Spans:
+      - Start: Blue
+        End: Turquoise
+        Steps: 200
+
+      - Start: Turquoise
+        End: Blue
+        Steps: 200
+    
+Shapes:
+#  - Type: Polygon
+#    Color: Yellow
+#    Paths: [ A, B, C, D, A ]
+    
+  - Type: Line
+    Color: Hot
+    Paths: [ A, C ]
+    
+  - Type: Line
+    Color: Cold
+    Paths: [ B, D ] 
+  
+  
+  
+  
+  
+  
+  
+  

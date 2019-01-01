@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<moire>
+  <points>
+    <point>
+      <name>A</name>
+      <path>stationary</path>
+      <args>
+	<arg>10%</arg>
+	<arg>10% </arg>
+      </args>
+    </point>
+    <point>
+      <name>B</name>
+      <path>stationary</path>
+      <args>
+	<arg>90%</arg>
+	<arg>90% </arg>
+      </args>
+    </point>
+    <point>
+      <name>C</name>
+      <path>rectangle</path>
+      <args>
+	<arg>30%</arg>
+	<arg>70%</arg>
+	<arg>30%</arg>
+	<arg>70%</arg>
+	<arg>7 </arg>
+      </args>
+    </point>
+  </points>
+  <colors/>
+  <shapes>
+    <shape>
+      <type>point</type>
+      <color>red</color>
+      <args>
+	<arg>A </arg>
+      </args>
+    </shape>
+    <shape>
+      <type>point</type>
+      <color>blue</color>
+      <args>
+	<arg>B </arg>
+      </args>
+    </shape>
+    <shape>
+      <type>point</type>
+      <color>green</color>
+      <args>
+	<arg>C </arg>
+      </args>
+    </shape>
+  </shapes>
+</moire>

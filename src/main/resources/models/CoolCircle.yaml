@@ -1,0 +1,29 @@
+---
+Paths:
+  - Name: A
+    Type: RandomBouncing
+    X: 7
+    Y: 7
+    
+  - Name: B
+    Type: RandomBouncing
+    X: 7
+    Y: 7
+    
+  - Name: C
+    Type: RandomBouncing
+    X: 7
+    Y: 7
+    
+  - Name: D
+    Type: OutscribedCenter
+    Paths: [ A, B, C ]
+    
+  - Name: E
+    Type: InscribedCenter
+    Paths: [ A, B, C ]
+    
+Shape:
+  Type: Circle
+  Color: Blue
+  Paths: [ D, E ]

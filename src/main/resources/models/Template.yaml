@@ -1,0 +1,167 @@
+Boundaries:
+  - Name: Fred
+    Parent: name | spec ( Optional, if omitted, use top level border )
+    
+    Left:   10 # Offset/Inset
+    Right: 100 # Inset
+    Top:    35 # Offset/Inset
+    Bottom: 70 # Inset
+    
+    Width: 10 | 10%
+    Height: 10 | 10%
+    
+    # For Scaled
+        
+    Left:   10% # Proportional to Parent Width
+    Right: 100% # Proportional to Parent Width
+    Top:    35% # Proportional to Parent Height
+    Bottom: 70% # Proportional to Parent Width
+
+#----------------------------------------------------------------
+    
+Colors:
+  - Name: Fred
+    
+    # For Single ("Type" is not required):
+    
+    Color: red
+    
+    # for Step
+    
+    Type: Step
+    Spans:
+      - Color: red
+        Steps: 10
+        
+      - Color: blue
+        Steps: 300
+    
+    # For Smooth
+    
+    Type: Smooth
+    Spans:
+      - Start: red
+        End: blue
+        Steps: 20
+      
+      - Start: yellow
+        End: gray
+        Steps: 300
+        
+#----------------------------------------------------------------
+
+Paths:
+  - Name: Fred
+    Type: ( Stationary | Bouncing | RandomBouncing | Polygon | Oval | MidPoint | Shadow | InscribedCenter | OutscribedCenter )
+    Boundary: name ( if omitted, use top level )
+    
+    # For Stationary
+  
+    X: 10
+    Y: 20
+
+    # For Bouncing
+    
+    X: 3
+    Y: 5
+    
+    # For RandomBouncing
+    
+    X: 3
+    Y: 8
+    
+    # For Polygon
+    
+    Points:
+      - X: 4
+        Y: 6
+        
+      - X: 10
+        Y: 20
+        
+      - X: 13
+        Y: 45
+        
+    # For Oval
+    
+    Phi: 15 ( in degrees )
+    
+    # For MidPoint
+    
+    Paths:
+      - name | parameters
+      # 2 paths required
+        
+    # For Shadow
+    
+    Path: name | parameters        
+    X: 10
+    Y: 10
+      
+    # For InscribedCenter
+    
+    Paths:
+      - name or parameters
+      # 3 paths required
+      
+    # For OutscribedCenter
+
+    Paths:
+      - name or parameters
+      # 2 or 3 paths required
+    
+#----------------------------------------------------------------
+
+Shapes:
+  - Name: fred
+    Type: ( Target | Line | Rectangle | Oval | Polygon | Circle | Curve )
+    Color: name | color sequence parameters
+    
+    # For Target
+    
+    Path: one
+    
+    # For Line
+    
+    Paths:
+      - name | parameters
+      - name | parameters
+
+    # For Rectangle
+    
+    Paths:
+      - name | parameters
+      - name | parameters
+
+    # For Oval
+    
+    Paths:
+      - name | parameters
+      - name | parameters
+
+    # For Polygon
+
+    Paths:
+      - name | parameters
+      - name | parameters
+      - name | parameters
+      # ...
+
+    # For Circle
+    
+    Paths:
+      - name | parameters
+      - name | parameters
+      
+      # or
+      
+    Path: name | paremters
+    Radius: 10
+    
+    # For Curve
+    Paths:
+      - name | parameters
+      - name | parameters
+      - name | parameters
+      - name | parameters
+    

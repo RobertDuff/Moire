@@ -1,0 +1,43 @@
+---
+Paths:
+  - Name: A
+    Type: Oval
+    Boundary:
+      Left: 10%
+      Top: 10%
+      Right: 90%
+      Bottom: 90%
+    Phi: 2
+      
+  - Name: B
+    Type: Oval
+    Boundary:
+      Left: 20%
+      Top: 20%
+      Right: 80%
+      Bottom: 80%
+    Phi: -3
+      
+  - Name: C
+    Type: Oval
+    Boundary:
+      Left: 30%
+      Top: 30%
+      Right: 70%
+      Bottom: 70%
+    Phi: 4
+    
+Shapes:
+  - Type: Circle
+    Color: Red
+    Paths: [ A, B ]
+
+  - Type: Circle
+    Color: Green
+    Paths: [ B, C ]
+
+  - Type: Circle
+    Color: Yellow
+    Paths: [ A, B ]
+
+    
