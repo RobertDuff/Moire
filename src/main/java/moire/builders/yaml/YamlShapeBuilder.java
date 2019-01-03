@@ -13,6 +13,7 @@ import moire.colors.SingleColorSequence;
 import moire.paths.Path;
 import moire.shapes.CircleShape;
 import moire.shapes.CurveShape;
+import moire.shapes.DotShape;
 import moire.shapes.LineShape;
 import moire.shapes.OvalShape;
 import moire.shapes.PolygonShape;
@@ -63,20 +64,31 @@ public class YamlShapeBuilder implements ShapeBuilder
 		
 		String type = params.get ( "Type" ).toString ();
 		
-		if ( type.equals ( "Target" ) )
-		{			
-			if ( paths.size () != 1 )
-				throw new BuilderException ( "Target Shape must have 1 path, had " + paths.size () );
-			
-			TargetShape ts = new TargetShape ();
-			shape = ts;
-			
-			if ( params.containsKey ( "Radius" ) )
-				ts.circleRadiusProperty ().setValue ( ( Number ) params.get ( "Radius" ) );
-			
-			if ( params.containsKey ( "Length" ) )
-				ts.lineLengthProperty ().setValue ( ( Number ) params.get ( "Length" ) );
-		}
+        if ( type.equals ( "Target" ) )
+        {           
+            if ( paths.size () != 1 )
+                throw new BuilderException ( "Target Shape must have 1 path, had " + paths.size () );
+            
+            TargetShape ts = new TargetShape ();
+            shape = ts;
+            
+            if ( params.containsKey ( "Radius" ) )
+                ts.circleRadiusProperty ().setValue ( ( Number ) params.get ( "Radius" ) );
+            
+            if ( params.containsKey ( "Length" ) )
+                ts.lineLengthProperty ().setValue ( ( Number ) params.get ( "Length" ) );
+        }
+        else if ( type.equals ( "Dot" ) )
+        {           
+            if ( paths.size () != 1 )
+                throw new BuilderException ( "Dot Shape must have 1 path, had " + paths.size () );
+            
+            DotShape ds = new DotShape ();
+            shape = ds;
+            
+            if ( params.containsKey ( "Radius" ) )
+                ds.radiusProperty ().setValue ( ( Number ) params.get ( "Radius" ) );
+        }
 		else if ( type.equals ( "Line" ) )
 		{
 			if ( paths.size () != 2 )

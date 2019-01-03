@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import moire.boundaries.Boundary;
-import moire.boundaries.SimpleBoundary;
+import moire.boundaries.RootBoundary;
 import moire.colors.ColorSequence;
 import moire.paths.Path;
 import moire.shapes.Shape;
 
 public class ModelData
 {
-	public SimpleBoundary topBoundary = new SimpleBoundary();
+	public RootBoundary rootBoundary = new RootBoundary();
 	
 	public Map<String,Boundary> namedBoundaries = new HashMap<>();
 	
@@ -31,7 +31,7 @@ public class ModelData
 	// Boundaries
 	//
 	
-	public void addBoundary ( Boundary boundary, String name )
+	public void addBoundary ( String name, Boundary boundary )
 	{
 		if ( name != null && !name.isEmpty () )
 			namedBoundaries.put ( name, boundary );
@@ -42,9 +42,9 @@ public class ModelData
 		return namedBoundaries.get ( name );
 	}
 	
-	public Boundary topBoundary()
+	public Boundary rootBoundary()
 	{
-		return topBoundary;
+		return rootBoundary;
 	}
 	
 	//

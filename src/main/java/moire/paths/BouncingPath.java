@@ -32,23 +32,23 @@ public class BouncingPath extends Path
 		
 		if ( boundary.outOfBoundsLeft ( x ) )
 		{	
-			x = boundary.leftBorder ();
+			x = boundary.left ();
 			updateXDelta ();
 		}
 		else if ( boundary.outOfBoundsRight ( x ) )
 		{
-			x = boundary.rightBorder ();
+			x = boundary.right ();
 			updateXDelta ();
 		}
 		
 		if ( boundary.outOfBoundsTop ( y ) )
 		{
-			y = boundary.topBorder ();
+			y = boundary.top ();
 			updateYDelta ();
 		}
 		else if ( boundary.outOfBoundsBottom ( y ) )
 		{
-			y = boundary.bottomBorder ();
+			y = boundary.bottom ();
 			updateYDelta ();
 		}
 		

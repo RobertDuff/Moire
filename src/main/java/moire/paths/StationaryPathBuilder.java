@@ -80,13 +80,13 @@ public class StationaryPathBuilder
 		StationaryPath path = new StationaryPath ( boundary );
 		
 		if ( xIsProportional && yIsProportional )
-			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.leftBorder () + boundary.width () * x, boundary.topBorder () + boundary.height () * y ); }, boundary.leftBorderProperty (), boundary.topBorderProperty (), boundary.rightBorderProperty (), boundary.bottomBorderProperty () ) );
+			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.left () + boundary.width () * x, boundary.top () + boundary.height () * y ); }, boundary.leftProperty (), boundary.topProperty (), boundary.rightProperty (), boundary.bottomProperty () ) );
 		else if ( xIsProportional && !yIsProportional )
-			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.leftBorder () + boundary.width () * x, boundary.topBorder () + y ); }, boundary.leftBorderProperty (), boundary.topBorderProperty (), boundary.rightBorderProperty (), boundary.bottomBorderProperty () ) );
+			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.left () + boundary.width () * x, boundary.top () + y ); }, boundary.leftProperty (), boundary.topProperty (), boundary.rightProperty (), boundary.bottomProperty () ) );
 		else if ( !xIsProportional && yIsProportional )
-			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.leftBorder () + x, boundary.topBorder () + boundary.height () * y ); }, boundary.leftBorderProperty (), boundary.topBorderProperty (), boundary.rightBorderProperty (), boundary.bottomBorderProperty () ) );
+			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.left () + x, boundary.top () + boundary.height () * y ); }, boundary.leftProperty (), boundary.topProperty (), boundary.rightProperty (), boundary.bottomProperty () ) );
 		else // Neither Proportional
-			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.leftBorder () + x, boundary.topBorder () + y); }, boundary.leftBorderProperty (), boundary.topBorderProperty (), boundary.rightBorderProperty (), boundary.bottomBorderProperty () ) );
+			path.locationProperty ().bind ( Bindings.createObjectBinding ( () -> { return new Point ( boundary.left () + x, boundary.top () + y); }, boundary.leftProperty (), boundary.topProperty (), boundary.rightProperty (), boundary.bottomProperty () ) );
 		
 		return path;
 	}

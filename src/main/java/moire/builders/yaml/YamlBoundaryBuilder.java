@@ -4,7 +4,7 @@ import java.util.Map;
 
 import moire.ModelData;
 import moire.boundaries.Boundary;
-import moire.boundaries.BoundaryBuilder.IncompleteBoundaryDataException;
+import moire.boundaries.Value;
 import moire.builders.BuilderException;
 
 public class YamlBoundaryBuilder implements moire.builders.BoundaryBuilder
@@ -19,98 +19,30 @@ public class YamlBoundaryBuilder implements moire.builders.BoundaryBuilder
 
 	@Override
 	public Boundary build ( ModelData modelData ) throws BuilderException
-	{
+	{	    
 		String name = null;
 		
 		if ( params.containsKey ( "Name" ) )
 			name = params.get ( "Name" ).toString ();
-
-		moire.boundaries.BoundaryBuilder builder = new moire.boundaries.BoundaryBuilder();
-
-		if ( params.containsKey ( "Parent" ) )
-			builder.parent ( modelData.boundary ( params.get ( "Parent" ).toString () ) );
-		else
-			builder.parent ( modelData.topBoundary () );
 		
 		// Left
 		
-		Object l = params.get ( "Left" );
-		if ( l.getClass ().equals ( String.class ) )
-			builder.left ( percentage ( l ), true );
-		else
-			builder.left ( ( ( Number ) l ).doubleValue () );
+        Value left   = YamlValueBuilder.build ( params.get ( "Left" ) );
+        Value top    = YamlValueBuilder.build ( params.get ( "Top" ) );
+        Value right  = YamlValueBuilder.build ( params.get ( "Right" ) );
+        Value bottom = YamlValueBuilder.build ( params.get ( "Bottom" ) );
+        Value width  = YamlValueBuilder.build ( params.get ( "Width" ) );
+        Value height = YamlValueBuilder.build ( params.get ( "Height" ) );
+        
+        Boundary parent = modelData.rootBoundary ();
+        
+        if ( params.containsKey ( "Parent" ) )
+            parent = modelData.boundary ( params.get ( "Parent" ).toString () );
 		
-		// Top
+        Boundary boundary = new Boundary ( parent, left, top, right, bottom, width, height );
+        
+		modelData.addBoundary ( name, boundary );
 		
-		Object t = params.get ( "Top" );
-		if ( t.getClass ().equals ( String.class ) )
-			builder.top ( percentage ( t ), true );
-		else
-			builder.top ( ( ( Number ) t ).doubleValue () );
-		
-		// Right
-		
-		Object r = params.get ( "Right" );
-		if ( r != null )
-		{
-			if ( r.getClass ().equals ( String.class ) )
-				builder.right ( percentage ( r ), true );
-			else
-				builder.right ( ( ( Number ) r ).doubleValue () );
-		}
-		
-		// Bottom
-		
-		Object b = params.get ( "Bottom" );
-		if ( b != null )
-		{
-			if ( b.getClass ().equals ( String.class ) )
-				builder.bottom ( percentage ( b ), true );
-			else
-				builder.bottom ( ( ( Number ) b ).doubleValue () );
-		}
-		
-		// Width
-		
-		Object w = params.get ( "Width" );
-		if ( w != null )
-		{
-			if ( w.getClass ().equals ( String.class ) )
-				builder.width ( percentage ( w ), true );
-			else
-				builder.width ( ( ( Number ) w ).doubleValue () );
-		}
-		
-		// Height
-		
-		Object h = params.get ( "Height" );
-		if ( h != null )
-		{
-			if ( h.getClass ().equals ( String.class ) )
-				builder.height ( percentage ( h ), true );
-			else
-				builder.height ( ( ( Number ) h ).doubleValue () );
-		}
-
-		Boundary boundary;
-		
-		try
-		{
-			boundary = builder.build ();
-		}
-		catch ( IncompleteBoundaryDataException e )
-		{
-			throw new BuilderException ( "Boundary Build Failed", e );
-		}
-		
-		modelData.addBoundary ( boundary, name );
 		return boundary;
 	}	
-	
-	protected double percentage ( Object spec )
-	{
-		String s = spec.toString ();
-		
-		return Double.valueOf ( s.substring ( 0, s.length ()-1 ) ) / 100;
-	}
 }

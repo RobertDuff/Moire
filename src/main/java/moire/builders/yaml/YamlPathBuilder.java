@@ -58,7 +58,7 @@ public class YamlPathBuilder implements PathBuilder
 				boundary = new YamlBoundaryBuilder ( bSpec ).build ( modelData );
 		}
 		else
-			boundary = modelData.topBoundary ();
+			boundary = modelData.rootBoundary ();
 		
 		String type = params.get ( "Type" ).toString ();
 		

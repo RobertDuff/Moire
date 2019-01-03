@@ -5,7 +5,7 @@ import java.util.Map;
 
 import moire.Model;
 import moire.ModelData;
-import moire.boundaries.SimpleBoundary;
+import moire.boundaries.RootBoundary;
 import moire.builders.BuilderException;
 import moire.builders.ModelBuilder;
 
@@ -32,7 +32,7 @@ public class YamlModelBuilder implements ModelBuilder
 			// Boundaries
 			//
 
-			modelData.addBoundary ( new SimpleBoundary (), "__Top" );
+			modelData.addBoundary ( "__Top", new RootBoundary () );
 			
 			if ( params.containsKey ( "Boundaries" ) )
 			{

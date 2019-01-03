@@ -48,17 +48,12 @@ public class Model
 	{
 		return framesProperty;
 	}
+
+	public void bindRootBoundarySize ( DoubleProperty widthProperty, DoubleProperty heightProperty )
+	{
+	    data.rootBoundary.bindWidth ( widthProperty ).bindHeight ( heightProperty );
+	}
 	
-	public DoubleProperty widthProperty ()
-	{
-		return data.topBoundary.widthProperty();
-	}
-
-	public DoubleProperty heightProperty ()
-	{
-		return data.topBoundary.heightProperty ();
-	}
-
 	public void advance()
 	{
 		for ( Path path : data.allPaths )

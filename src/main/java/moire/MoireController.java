@@ -11,6 +11,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -74,6 +76,7 @@ public class MoireController implements Initializable
 	public Canvas canvas;
 	
 	protected ModelLoader modelLoader;
+	protected StringProperty titleProperty = new SimpleStringProperty();
 	protected ObjectProperty<Model> modelProperty = new SimpleObjectProperty<Model>();
 	protected BooleanProperty runningProperty = new SimpleBooleanProperty();
 	protected ListChangeListener<List<Artist>> drawListener;
@@ -86,6 +89,11 @@ public class MoireController implements Initializable
 		return modelProperty;
 	}
 
+	public StringProperty titleProperty()
+	{
+	    return titleProperty;
+	}
+	
 	public void setModelLoader ( ModelLoader modelLoader )
 	{
 		this.modelLoader = modelLoader;
@@ -94,6 +102,8 @@ public class MoireController implements Initializable
 	@Override
 	public void initialize ( URL location, ResourceBundle resources )
 	{
+	    titleProperty.setValue ( "Moire" );
+	    
 		backgroundColorProperty.set ( Color.BLACK );
 		
 		canvas.widthProperty ().bind ( canvasPane.widthProperty () );
@@ -109,8 +119,7 @@ public class MoireController implements Initializable
 			if ( o != null )
 			{
 				o.backgroundColorProperty ().unbind ();
-				o.widthProperty ().unbind ();
-				o.heightProperty ().unbind ();
+				o.bindRootBoundarySize ( null, null );
 				o.lengthProperty ().unbind ();
 				
 				o.framesProperty().removeListener ( drawListener );
@@ -120,8 +129,7 @@ public class MoireController implements Initializable
 			if ( n != null )
 			{
 				n.backgroundColorProperty ().bind ( backgroundColorProperty );
-				n.widthProperty ().bind ( canvas.widthProperty () );
-				n.heightProperty ().bind ( canvas.heightProperty () );
+				n.bindRootBoundarySize ( canvas.widthProperty (), canvas.heightProperty () );
 				n.lengthProperty ().bind ( lengthSlider.valueProperty () );
 				
 				drawListener = c ->
@@ -196,6 +204,7 @@ public class MoireController implements Initializable
 		            {
 		                runningProperty.set ( false );
 		                modelProperty.setValue ( modelLoader.load ( modelFile ).build () );
+		                titleProperty.setValue ( "Moire - " + modelFile.getName () );
 		            }
 				}
 				catch ( Exception exp )

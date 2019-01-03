@@ -24,6 +24,8 @@ public class Moire extends Application
 		ModelLoader modelLoader = new YamlModelLoader ();
 		controller.setModelLoader ( modelLoader );
 		
+		primaryStage.titleProperty ().bind ( controller.titleProperty () );
+		
 		Scene scene = new Scene ( parent, 1400, 1000 );
 		primaryStage.setScene ( scene );
 		primaryStage.show ();

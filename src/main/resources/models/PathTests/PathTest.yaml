@@ -1,0 +1,30 @@
+---
+Boundaries:
+  - { Name: A, Left:  4%, Top:  6%, Width: 20%, Height: 25% }  
+  - { Name: B, Left: 28%, Top:  6%, Width: 20%, Height: 25% }
+  - { Name: C, Left: 52%, Top:  6%, Width: 20%, Height: 25% }
+  - { Name: D, Left: 76%, Top:  6%, Width: 20%, Height: 25% }
+
+  - { Name: E, Left:  4%, Top: 37%, Width: 20%, Height: 25% }  
+  - { Name: F, Left: 28%, Top: 37%, Width: 20%, Height: 25% }
+  - { Name: G, Left: 52%, Top: 37%, Width: 20%, Height: 25% }
+  - { Name: H, Left: 76%, Top: 37%, Width: 20%, Height: 25% }
+
+  - { Name: I, Left:  4%, Top: 68%, Width: 20%, Height: 25% }  
+  - { Name: J, Left: 28%, Top: 68%, Width: 20%, Height: 25% }
+  - { Name: K, Left: 52%, Top: 68%, Width: 20%, Height: 25% }
+  - { Name: L, Left: 76%, Top: 68%, Width: 20%, Height: 25% }
+  
+Paths:
+  - { Name: A, Boundary: A, Type: Stationary, X: 50%, Y: 50% }
+  
+  - { Name: B, Boundary: B, Type: Bouncing, X: 10, Y: 10 }
+  
+  - { Name: C, Boundary: C, Type: RandomBouncing, X: 10, Y: 10 }
+  
+  
+Shapes:
+  - { Type: Dot, Color: Cyan, Paths: [ A ] }
+  - { Type: Dot, Color: Green, Paths: [ B ] }
+  - { Type: Dot, Color: Red, Paths: [ C ] }
+  
