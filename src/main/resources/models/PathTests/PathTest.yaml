@@ -25,7 +25,7 @@ Paths:
   
   - { Name: C, Boundary: C, Type: RandomBouncing, X: 10, Y: 10 }
   
-  - { Name: D, Boundary: D, Type: Polygon, Points: [ { X: 0, Y: 0 }, { X: 100%, Y: 0 }, { X: 100%, Y: 100% }, { X: 0, Y: 100% } ] }
+  - { Name: D, Boundary: D, Type: Polygon, Step: 30, Points: [ { X: 0, Y: 0 }, { X: 100%, Y: 100% } ] }
   
 Shapes:
   - { Type: Dot, Color: Cyan,  Paths: [ A1 ] }

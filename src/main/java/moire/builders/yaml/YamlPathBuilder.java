@@ -134,7 +134,19 @@ public class YamlPathBuilder implements PathBuilder
 	            pl.add ( p );
 			}
 			
-			path = new PolygonPath ( boundary, pl );
+			double step = 1.0;
+			
+			if ( params.containsKey ( "Step" ) )
+			{
+			    Value stepValue = YamlValueBuilder.build ( params.get ( "Step" ) );
+			    
+			    if ( stepValue.isProportional )
+			        step = stepValue.value;
+			    else
+			        step = 1.0 / stepValue.value;
+			}
+			
+			path = new PolygonPath ( boundary, pl, step );
 		}
 		else if ( type.equals ( "Oval" ) )
 		{
