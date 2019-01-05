@@ -1,8 +1,6 @@
 package moire.boundaries;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 public class Boundary
@@ -13,76 +11,33 @@ public class Boundary
     protected DoubleProperty bottomProperty = new SimpleDoubleProperty ( 0.0 );
     protected DoubleProperty widthProperty  = new SimpleDoubleProperty ();
     protected DoubleProperty heightProperty = new SimpleDoubleProperty ();
-
-    // For Use by Sub Classes
-    protected Boundary()
-    {
-        widthProperty.bind ( Bindings.createDoubleBinding ( () -> right() - left(), leftProperty, rightProperty ) );
-        heightProperty.bind ( Bindings.createDoubleBinding ( () -> bottom() - top(), topProperty, bottomProperty ) );
-    }
-
-    public Boundary ( Boundary parent, Value left, Value top, Value right, Value bottom, Value width, Value height )
-    {
-        this();
-
-        if ( parent != null )
-        {        
-            leftProperty.bind ( Bindings.createDoubleBinding ( () -> calcBorder ( parent.left(), left, parent.width () ),
-                    parent.leftProperty (), parent.rightProperty() ) );
-
-            topProperty.bind ( Bindings.createDoubleBinding ( () -> calcBorder ( parent.top (), top, parent.height () ),
-                    parent.topProperty (), parent.bottomProperty () ) );
-
-            if ( width != null )
-                rightProperty.bind ( Bindings.createDoubleBinding ( () -> calcBorder ( left (), width, parent.width () ),
-                        parent.leftProperty (), parent.rightProperty () ) );
-            else
-                rightProperty.bind ( Bindings.createDoubleBinding ( () -> calcBorder ( parent.right (), right.negate (), parent.width () ), 
-                        parent.leftProperty (), parent.rightProperty () ) );
-
-            if ( height != null )
-                bottomProperty.bind ( Bindings.createDoubleBinding ( () -> calcBorder ( top (), height, parent.height () ),
-                        parent.topProperty (), parent.bottomProperty () ) );
-            else
-                bottomProperty.bind ( Bindings.createDoubleBinding ( () -> calcBorder ( parent.bottom (), bottom.negate (), parent.height () ), 
-                        parent.topProperty (), parent.bottomProperty () ) );
-        }
-    }
-
-    private double calcBorder ( double base, Value offset, double scale )
-    {
-        if ( offset == null )
-            return base;
-
-        return base + offset.value * ( offset.isProportional? scale : 1.0 );
-    }
     
-    public ReadOnlyDoubleProperty leftProperty()
+    public DoubleProperty leftProperty()
     {
         return leftProperty;
     }
 
-    public ReadOnlyDoubleProperty topProperty()
+    public DoubleProperty topProperty()
     {
         return topProperty;
     }
 
-    public ReadOnlyDoubleProperty rightProperty()
+    public DoubleProperty rightProperty()
     {
         return rightProperty;
     }
 
-    public ReadOnlyDoubleProperty bottomProperty()
+    public DoubleProperty bottomProperty()
     {
         return bottomProperty;
     }
 
-    public ReadOnlyDoubleProperty widthProperty()
+    public DoubleProperty widthProperty()
     {
         return widthProperty;
     }
 
-    public ReadOnlyDoubleProperty heightProperty()
+    public DoubleProperty heightProperty()
     {
         return heightProperty;
     }

@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.binding.Bindings;
 import moire.ModelData;
 import moire.boundaries.Boundary;
+import moire.boundaries.Value;
 import moire.builders.BuilderException;
 import moire.builders.PathBuilder;
+import moire.paths.BindablePoint;
 import moire.paths.BouncingPath;
 import moire.paths.InscribedCircleCenterPath;
 import moire.paths.MidPointPath;
@@ -17,7 +20,7 @@ import moire.paths.Path;
 import moire.paths.PolygonPath;
 import moire.paths.RandomBouncingPath;
 import moire.paths.ShadowPath;
-import moire.paths.StationaryPathBuilder;
+import moire.paths.StationaryPath;
 import utility.geometry.Point;
 
 
@@ -55,7 +58,7 @@ public class YamlPathBuilder implements PathBuilder
 					throw new BuilderException ( "No Boundary named " + bSpec.toString () );
 			}
 			else
-				boundary = new YamlBoundaryBuilder ( bSpec ).build ( modelData );
+				boundary = new YamlBoundaryBuilder ( bSpec, modelData ).build();
 		}
 		else
 			boundary = modelData.rootBoundary ();
@@ -64,21 +67,27 @@ public class YamlPathBuilder implements PathBuilder
 		
 		if ( type.equals ( "Stationary" ) )
 		{
-			StationaryPathBuilder builder = new StationaryPathBuilder();
-			
-			builder.boundary ( boundary );
-			
-			if ( params.get ( "X" ).getClass ().equals ( String.class ) )
-				builder.x ( percentage ( params.get ( "X" ) ), true );
-			else
-				builder.x ( ( ( Number ) params.get ( "X" ) ).doubleValue () );
-			
-			if ( params.get ( "Y" ).getClass ().equals ( String.class ) )
-				builder.y ( percentage ( params.get ( "Y" ) ), true );
-			else
-				builder.y ( ( ( Number ) params.get ( "Y" ) ).doubleValue () );
-			
-			path = builder.build ();
+		    BindablePoint point = new BindablePoint ();
+		    
+            Value xValue = YamlValueBuilder.build ( params.get ( "X" ) );
+            Value yValue = YamlValueBuilder.build ( params.get ( "Y" ) );
+            
+            final double x = xValue.value;
+            final double y = yValue.value;
+            final Boundary b = boundary;
+            
+            if ( xValue.isProportional )
+                point.xProperty ().bind ( Bindings.createDoubleBinding ( () -> b.left () + x * b.width (), b.leftProperty (), b.widthProperty () ) );
+            else
+                point.xProperty ().bind ( Bindings.createDoubleBinding ( () -> b.left () + x, b.leftProperty () ) ); 
+            
+            if ( yValue.isProportional )
+                point.yProperty ().bind ( Bindings.createDoubleBinding ( () -> b.top () + y * b.height (), b.topProperty (), b.heightProperty () ) );
+            else
+                point.yProperty ().bind ( Bindings.createDoubleBinding ( () -> b.top () + y, b.topProperty () ) ); 
+            
+            path = new StationaryPath ( boundary );
+            path.locationProperty ().set ( point );
 		}
 		else if ( type.equals ( "Bouncing" ) )
 		{
@@ -97,12 +106,33 @@ public class YamlPathBuilder implements PathBuilder
 		else if ( type.equals ( "Polygon" ) )
 		{
 			@SuppressWarnings ( "unchecked" )
-			List<Map<String,Number>> points = ( List<Map<String,Number>> ) params.get ( "Points" );
+			List<Map<String,Object>> points = ( List<Map<String,Object>> ) params.get ( "Points" );
 			
 			List<Point> pl = new ArrayList<>();
 			
-			for ( Map<String,Number> point : points )
-				pl.add ( new Point ( point.get ( "X" ).doubleValue (), point.get ( "Y" ).doubleValue () ) );
+			for ( Map<String,Object> point : points )
+			{
+	            BindablePoint p = new BindablePoint ();
+	            
+	            Value xValue = YamlValueBuilder.build ( point.get ( "X" ) );
+	            Value yValue = YamlValueBuilder.build ( point.get ( "Y" ) );
+	            
+	            final double x = xValue.value;
+	            final double y = yValue.value;
+	            final Boundary b = boundary;
+	            
+	            if ( xValue.isProportional )
+	                p.xProperty ().bind ( Bindings.createDoubleBinding ( () -> b.left () + x * b.width (), b.leftProperty (), b.widthProperty () ) );
+	            else
+	                p.xProperty ().bind ( Bindings.createDoubleBinding ( () -> b.left () + x, b.leftProperty () ) ); 
+	            
+	            if ( yValue.isProportional )
+	                p.yProperty ().bind ( Bindings.createDoubleBinding ( () -> b.top () + y * b.height (), b.topProperty (), b.heightProperty () ) );
+	            else
+	                p.yProperty ().bind ( Bindings.createDoubleBinding ( () -> b.top () + y, b.topProperty () ) ); 
+
+	            pl.add ( p );
+			}
 			
 			path = new PolygonPath ( boundary, pl );
 		}

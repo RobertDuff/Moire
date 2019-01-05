@@ -16,15 +16,23 @@ Boundaries:
   - { Name: L, Left: 76%, Top: 68%, Width: 20%, Height: 25% }
   
 Paths:
-  - { Name: A, Boundary: A, Type: Stationary, X: 50%, Y: 50% }
+  - { Name: A1, Boundary: A, Type: Stationary, X: 0%, Y: 0% }
+  - { Name: A2, Boundary: A, Type: Stationary, X: 1/2, Y: 1/2 }
+  - { Name: A3, Boundary: A, Type: Stationary, X: 100%, Y: 100% }
+  - { Name: A4, Boundary: A, Type: Stationary, X: 10, Y: 10 }
   
   - { Name: B, Boundary: B, Type: Bouncing, X: 10, Y: 10 }
   
   - { Name: C, Boundary: C, Type: RandomBouncing, X: 10, Y: 10 }
   
+  - { Name: D, Boundary: D, Type: Polygon, Points: [ { X: 0, Y: 0 }, { X: 100%, Y: 0 }, { X: 100%, Y: 100% }, { X: 0, Y: 100% } ] }
   
 Shapes:
-  - { Type: Dot, Color: Cyan, Paths: [ A ] }
-  - { Type: Dot, Color: Green, Paths: [ B ] }
-  - { Type: Dot, Color: Red, Paths: [ C ] }
+  - { Type: Dot, Color: Cyan,  Paths: [ A1 ] }
+  - { Type: Dot, Color: Cyan,  Paths: [ A2 ] }
+  - { Type: Dot, Color: Cyan,  Paths: [ A3 ] }
+  - { Type: Dot, Color: Cyan,  Paths: [ A4 ] }
+  - { Type: Dot, Color: Green, Paths: [ B  ] }
+  - { Type: Dot, Color: Red,   Paths: [ C  ] }
+  - { Type: Dot, Color: Blue,  Paths: [ D  ] }
   

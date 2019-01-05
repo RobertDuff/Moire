@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import moire.builders.BoundaryBuilder;
+import moire.builders.BuilderException;
 
 public class BoundaryTest
 {
@@ -52,9 +54,15 @@ public class BoundaryTest
     }
     
     @Test
-    public void testAbsolute()
+    public void testAbsolute_LeftRight_TopBottom() throws BuilderException
     {
-        Boundary b = new Boundary ( root, new Value ( 10.0 ), new Value ( 20.0 ), new Value ( 30.0 ), new Value ( 40.0 ), null, null );
+        Boundary b = new BoundaryBuilder()
+                .parent ( root )
+                .left ( new Value ( 10.0 ) )
+                .top (  new Value ( 20.0 ) )
+                .right ( new Value ( 30.0 ) )
+                .bottom ( new Value ( 40.0 ) )
+                .build();
         
         assertEquals ( 10.0, b.left (),   TOLLERANCE );
         assertEquals ( 20.0, b.top (),    TOLLERANCE );
@@ -75,9 +83,15 @@ public class BoundaryTest
     }
     
     @Test
-    public void testAbsoluteWidth()
+    public void testAbsolute_LeftWidth_TopHeight() throws BuilderException
     {
-        Boundary b = new Boundary ( root, new Value ( 10.0 ), new Value ( 20.0 ), null, null, new Value ( 30.0 ), new Value ( 40.0 ) );
+        Boundary b = new BoundaryBuilder()
+                .parent ( root )
+                .left ( new Value ( 10.0 ) )
+                .top (  new Value ( 20.0 ) )
+                .width ( new Value ( 30.0 ) )
+                .height ( new Value ( 40.0 ) )
+                .build();
         
         assertEquals ( 10.0, b.left (),   TOLLERANCE );
         assertEquals ( 20.0, b.top (),    TOLLERANCE );
@@ -98,9 +112,44 @@ public class BoundaryTest
     }
     
     @Test
-    public void testProportional()
+    public void testAbsolute_RightWidth_BottomHeight() throws BuilderException
     {
-        Boundary b = new Boundary ( root, new Value ( 0.07, true ), new Value ( 0.17, true ), new Value ( 0.29, true ), new Value ( 0.37, true ), null, null );
+        Boundary b = new BoundaryBuilder()
+                .parent ( root )
+                .right ( new Value ( 10.0 ) )
+                .bottom (  new Value ( 20.0 ) )
+                .width ( new Value ( 30.0 ) )
+                .height ( new Value ( 40.0 ) )
+                .build();
+        
+        assertEquals ( 60.0, b.left (),   TOLLERANCE );
+        assertEquals ( 40.0, b.top (),    TOLLERANCE );
+        assertEquals ( 90.0, b.right (),  TOLLERANCE );
+        assertEquals ( 80.0, b.bottom (), TOLLERANCE );
+        assertEquals ( 30.0, b.width (),  TOLLERANCE );
+        assertEquals ( 40.0, b.height (), TOLLERANCE );
+        
+        rootWidth.set ( 1000.0 );
+        rootHeight.set ( 1000.0 );
+        
+        assertEquals ( 960.0, b.left (),   TOLLERANCE );
+        assertEquals ( 940.0, b.top (),    TOLLERANCE );
+        assertEquals ( 990.0, b.right (),  TOLLERANCE );
+        assertEquals ( 980.0, b.bottom (), TOLLERANCE );
+        assertEquals ( 30.0, b.width (),  TOLLERANCE );
+        assertEquals ( 40.0, b.height (), TOLLERANCE );
+    }
+    
+    @Test
+    public void testProportional_LeftRight_TopBottom() throws BuilderException
+    {
+        Boundary b = new BoundaryBuilder()
+                .parent ( root )
+                .left ( new Value ( 0.07, true ) )
+                .top (  new Value ( 0.17, true ) )
+                .right ( new Value ( 0.29, true ) )
+                .bottom ( new Value ( 0.37, true ) )
+                .build();
         
         assertEquals (  7.0, b.left (),   TOLLERANCE );
         assertEquals ( 17.0, b.top (),    TOLLERANCE );
@@ -121,9 +170,15 @@ public class BoundaryTest
     }
     
     @Test
-    public void testProportionalWidth()
+    public void testProportional_LeftWidth_TopHeight() throws BuilderException
     {
-        Boundary b = new Boundary ( root, new Value ( 0.07, true ), new Value ( 0.17, true ), null, null, new Value ( 0.29, true ), new Value ( 0.37, true ) );
+        Boundary b = new BoundaryBuilder()
+                .parent ( root )
+                .left ( new Value ( 0.07, true ) )
+                .top (  new Value ( 0.17, true ) )
+                .width ( new Value ( 0.29, true ) )
+                .height ( new Value ( 0.37, true ) )
+                .build();
         
         assertEquals (  7.0, b.left (),   TOLLERANCE );
         assertEquals ( 17.0, b.top (),    TOLLERANCE );
@@ -139,6 +194,35 @@ public class BoundaryTest
         assertEquals ( 170.0, b.top (),    TOLLERANCE );
         assertEquals ( 360.0, b.right (),  TOLLERANCE );
         assertEquals ( 540.0, b.bottom (), TOLLERANCE );
+        assertEquals ( 290.0, b.width (),  TOLLERANCE );
+        assertEquals ( 370.0, b.height (), TOLLERANCE );
+    }
+    
+    @Test
+    public void testProportional_RightWidth_BottomHeight() throws BuilderException
+    {
+        Boundary b = new BoundaryBuilder()
+                .parent ( root )
+                .right ( new Value ( 0.07, true ) )
+                .bottom (  new Value ( 0.17, true ) )
+                .width ( new Value ( 0.29, true ) )
+                .height ( new Value ( 0.37, true ) )
+                .build();
+        
+        assertEquals ( 64.0, b.left (),   TOLLERANCE );
+        assertEquals ( 46.0, b.top (),    TOLLERANCE );
+        assertEquals ( 93.0, b.right (),  TOLLERANCE );
+        assertEquals ( 83.0, b.bottom (), TOLLERANCE );
+        assertEquals ( 29.0, b.width (),  TOLLERANCE );
+        assertEquals ( 37.0, b.height (), TOLLERANCE );
+        
+        rootWidth.set ( 1000.0 );
+        rootHeight.set ( 1000.0 );
+        
+        assertEquals ( 640.0, b.left (),   TOLLERANCE );
+        assertEquals ( 460.0, b.top (),    TOLLERANCE );
+        assertEquals ( 930.0, b.right (),  TOLLERANCE );
+        assertEquals ( 830.0, b.bottom (), TOLLERANCE );
         assertEquals ( 290.0, b.width (),  TOLLERANCE );
         assertEquals ( 370.0, b.height (), TOLLERANCE );
     }

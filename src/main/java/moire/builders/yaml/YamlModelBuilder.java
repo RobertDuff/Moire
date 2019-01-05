@@ -40,7 +40,7 @@ public class YamlModelBuilder implements ModelBuilder
 				List<Object> bSpecs = ( List<Object> ) params.get ( "Boundaries" );
 
 				for ( Object bSpec  : bSpecs )
-					new YamlBoundaryBuilder ( bSpec ).build ( modelData );
+					new YamlBoundaryBuilder ( bSpec, modelData ).build();
 			}
 
 			//

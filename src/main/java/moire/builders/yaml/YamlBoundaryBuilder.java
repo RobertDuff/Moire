@@ -4,44 +4,45 @@ import java.util.Map;
 
 import moire.ModelData;
 import moire.boundaries.Boundary;
-import moire.boundaries.Value;
 import moire.builders.BuilderException;
 
-public class YamlBoundaryBuilder implements moire.builders.BoundaryBuilder
+public class YamlBoundaryBuilder extends moire.builders.BoundaryBuilder
 {
-	protected Map<String,Object> params;
-
+	protected String boundaryName;
+	protected ModelData modelData;
+	
 	@SuppressWarnings ( "unchecked" )
-	public YamlBoundaryBuilder ( Object top ) throws BuilderException
+	public YamlBoundaryBuilder ( Object top, ModelData data ) throws BuilderException
 	{
-		params = ( Map<String,Object> ) top;
-	}
-
-	@Override
-	public Boundary build ( ModelData modelData ) throws BuilderException
-	{	    
-		String name = null;
+	    modelData = data;
+	    
+	    Map<String,Object> params = ( Map<String,Object> ) top;
 		
-		if ( params.containsKey ( "Name" ) )
-			name = params.get ( "Name" ).toString ();
-		
-		// Left
-		
-        Value left   = YamlValueBuilder.build ( params.get ( "Left" ) );
-        Value top    = YamlValueBuilder.build ( params.get ( "Top" ) );
-        Value right  = YamlValueBuilder.build ( params.get ( "Right" ) );
-        Value bottom = YamlValueBuilder.build ( params.get ( "Bottom" ) );
-        Value width  = YamlValueBuilder.build ( params.get ( "Width" ) );
-        Value height = YamlValueBuilder.build ( params.get ( "Height" ) );
+        if ( params.containsKey ( "Name" ) )
+            boundaryName = params.get ( "Name" ).toString ();
         
         Boundary parent = modelData.rootBoundary ();
         
         if ( params.containsKey ( "Parent" ) )
             parent = modelData.boundary ( params.get ( "Parent" ).toString () );
-		
-        Boundary boundary = new Boundary ( parent, left, top, right, bottom, width, height );
+
+        parent ( parent );
         
-		modelData.addBoundary ( name, boundary );
+        left   ( YamlValueBuilder.build ( params.get ( "Left"   ) ) );
+        top    ( YamlValueBuilder.build ( params.get ( "Top"    ) ) );
+        right  ( YamlValueBuilder.build ( params.get ( "Right"  ) ) );
+        bottom ( YamlValueBuilder.build ( params.get ( "Bottom" ) ) );
+        width  ( YamlValueBuilder.build ( params.get ( "Width"  ) ) );
+        height ( YamlValueBuilder.build ( params.get ( "Height" ) ) );
+	}
+
+	@Override
+	public Boundary build () throws BuilderException
+	{	    		
+        Boundary boundary = super.build();
+        
+        if ( boundaryName != null )
+            modelData.addBoundary ( boundaryName, boundary );
 		
 		return boundary;
 	}	
